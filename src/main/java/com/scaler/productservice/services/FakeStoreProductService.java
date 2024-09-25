@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class FakeStoreProductService implements ProductService {
     private RestTemplate restTemplate;
@@ -23,5 +26,18 @@ public class FakeStoreProductService implements ProductService {
         );
         return responseDto.toProduct();
 
+    }
+
+    @Override
+    public List<Product> getAllProducts() {
+        FakeStoreProductResponseDto[] responseDtos = restTemplate.getForObject(
+                "https://fakestoreapi.com/products",
+                FakeStoreProductResponseDto[].class
+        );
+        List<Product> products = new ArrayList<>();
+        for (FakeStoreProductResponseDto responseDto : responseDtos) {
+            products.add(responseDto.toProduct());
+        }
+        return products;
     }
 }
