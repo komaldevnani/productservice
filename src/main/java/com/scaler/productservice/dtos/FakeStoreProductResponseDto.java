@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class FakeStoreProductResponseDto {
     private long id;
     private String title;
-    private double price;
+    private Double price;
     private String description;
     private String category;
     private String image;
